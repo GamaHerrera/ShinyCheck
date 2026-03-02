@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useShinyStore } from '../store/useShinyStore';
-import { Settings, X } from 'lucide-react';
+import { Settings, X, HelpCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const BottomMetrics: React.FC = () => {
-    const { current_count, pokemon_name, odds_base, setPokemon } = useShinyStore();
+    const { current_count, pokemon_name, odds_base, setPokemon, setHasSeenTutorial } = useShinyStore();
     const [sessionCount, setSessionCount] = React.useState(0);
     const [elapsed, setElapsed] = React.useState('0m');
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -48,18 +48,29 @@ export const BottomMetrics: React.FC = () => {
                 </div>
 
                 {/* Settings button is interactive while rest is pointer-events-none */}
-                <button
-                    className="pointer-events-auto p-3 rounded-full opacity-30 hover:opacity-100 transition-opacity duration-300 mb-2"
-                    onClick={(e) => {
-                        e.stopPropagation(); // prevent app tap
-                        setIsSettingsOpen(true);
-                    }}
-                >
-                    <Settings className="w-6 h-6" />
-                </button>
+                <div className="flex items-center gap-2 pointer-events-auto mb-2">
+                    <button
+                        className="p-3 rounded-full opacity-30 hover:opacity-100 transition-opacity duration-300"
+                        onClick={(e) => {
+                            e.stopPropagation(); // prevent app tap
+                            setHasSeenTutorial(false);
+                        }}
+                    >
+                        <HelpCircle className="w-5 h-5" />
+                    </button>
+                    <button
+                        className="p-3 rounded-full opacity-30 hover:opacity-100 transition-opacity duration-300"
+                        onClick={(e) => {
+                            e.stopPropagation(); // prevent app tap
+                            setIsSettingsOpen(true);
+                        }}
+                    >
+                        <Settings className="w-6 h-6" />
+                    </button>
+                </div>
 
                 <div className="text-[10px] opacity-20 tracking-widest uppercase flex flex-col items-center gap-1 font-mono mt-1">
-                    <span>ShinyCheck v1.1.0</span>
+                    <span>ShinyCheck v1.3.0</span>
                     <span>by Alkimia Studio</span>
                 </div>
             </div>

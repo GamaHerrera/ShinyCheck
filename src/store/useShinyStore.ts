@@ -12,11 +12,14 @@ export interface ShinyState {
     last_active_timestamp: number; // Last time the user tapped/app was foregrounded
 
     isVictory: boolean;
+    hasSeenTutorial: boolean;
+
     increment: () => void;
     decrement: () => void;
     reset: () => void;
     setPokemon: (name: string, odds: number) => void;
     setVictory: (status: boolean) => void;
+    setHasSeenTutorial: (status: boolean) => void;
 
     // Playtime Actions
     updatePlaytime: () => void;
@@ -36,6 +39,7 @@ export const useShinyStore = create<ShinyState>()(
             last_active_timestamp: Date.now(),
 
             isVictory: false,
+            hasSeenTutorial: false,
 
             increment: () => {
                 get().updatePlaytime(); // Update time before incrementing count logic
@@ -60,6 +64,7 @@ export const useShinyStore = create<ShinyState>()(
             }),
             setPokemon: (name: string, odds: number) => set({ pokemon_name: name, odds_base: odds }),
             setVictory: (status: boolean) => set({ isVictory: status }),
+            setHasSeenTutorial: (status: boolean) => set({ hasSeenTutorial: status }),
 
             // Playtime Logic
             resumePlaytime: () => set({ last_active_timestamp: Date.now() }),

@@ -4,14 +4,16 @@ import { TopInfo } from './components/TopInfo';
 import { GiantCounter, getPokemonColor } from './components/GiantCounter';
 import { BottomMetrics } from './components/BottomMetrics';
 import { VictoryScreen } from './components/VictoryScreen';
+import { TutorialOverlay } from './components/TutorialOverlay';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 import { KeepAwake } from '@capacitor-community/keep-awake';
 import { Capacitor } from '@capacitor/core';
 import { motion, AnimatePresence } from 'framer-motion';
 
 function App() {
-  const { increment, decrement, isVictory } = useShinyStore();
+  const { increment, decrement, isVictory, hasSeenTutorial } = useShinyStore();
   const [startY, setStartY] = useState(0);
+  // ... Skipping unmodified lines to target bottom return...
   const [flashlight, setFlashlight] = useState(false);
 
   const tryHaptics = useCallback(async () => {
@@ -157,6 +159,7 @@ function App() {
 
       <AnimatePresence>
         {isVictory && <VictoryScreen />}
+        {!hasSeenTutorial && <TutorialOverlay />}
       </AnimatePresence>
     </main>
   );
