@@ -42,9 +42,9 @@ export const BottomMetrics: React.FC = () => {
         <>
             <div className="pb-12 pt-4 flex flex-col items-center justify-end pointer-events-none relative z-10 w-full">
                 <div className="flex gap-4 sm:gap-6 text-xs sm:text-sm opacity-50 mb-6 font-mono w-full justify-center px-4 overflow-hidden text-center whitespace-nowrap">
-                    <span>Sesión: +{sessionCount}</span>
+                    <span>Esta sesión: +{sessionCount}</span>
                     <span>•</span>
-                    <span>Tiempo: {elapsed}</span>
+                    <span>Jugando: {elapsed}</span>
                 </div>
 
                 {/* Settings button is interactive while rest is pointer-events-none */}
@@ -100,16 +100,16 @@ export const BottomMetrics: React.FC = () => {
 
                             <h2 className="text-xl font-medium mb-6 flex items-center gap-2">
                                 <Settings className="w-5 h-5 opacity-60" />
-                                Configuración
+                                Ajustes de Cacería
                             </h2>
 
                             <div className="space-y-6">
                                 <div>
-                                    <label className="block text-sm opacity-60 mb-2">Pokémon a buscar</label>
+                                    <label className="block text-sm opacity-60 mb-2">¿A quién estamos buscando?</label>
                                     <input
                                         type="text"
                                         defaultValue={pokemon_name}
-                                        placeholder="Ej. Charmander, Mew..."
+                                        placeholder="Ej. Charizard, Rayquaza..."
                                         className="w-full bg-black/50 border border-zinc-800 rounded-xl p-4 outline-none focus:border-white/50 transition-colors"
                                         onBlur={(e) => setPokemon(e.target.value.trim() || 'Desconocido', odds_base)}
                                         onKeyDown={(e) => {
@@ -123,7 +123,7 @@ export const BottomMetrics: React.FC = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm opacity-60 mb-2">Probabilidad Base (Odds)</label>
+                                    <label className="block text-sm opacity-60 mb-2">Probabilidad (Odds)</label>
                                     <select
                                         defaultValue={odds_base}
                                         onChange={(e) => setPokemon(pokemon_name, Number(e.target.value))}
@@ -146,7 +146,7 @@ export const BottomMetrics: React.FC = () => {
                                 }}
                                 className="w-full mt-8 bg-white text-black font-medium py-4 rounded-xl hover:bg-zinc-200 transition-colors"
                             >
-                                Cerrar
+                                Guardar y seguir
                             </button>
                         </motion.div>
                     </motion.div>

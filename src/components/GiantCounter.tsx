@@ -101,7 +101,7 @@ export const GiantCounter: React.FC = () => {
                         animate={{ opacity: 1, y: 0 }}
                         className="absolute bottom-16 text-red-500/80 text-sm font-medium tracking-widest uppercase z-10"
                     >
-                        OVER ODDS
+                        MÁS ALLÁ DEL LÍMITE
                     </motion.div>
                 )}
             </AnimatePresence>

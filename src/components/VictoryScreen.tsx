@@ -107,23 +107,23 @@ export const VictoryScreen: React.FC = () => {
                     >
                         <Sparkles className={`w-12 h-12 mb-4 ${colorClass}`} />
                     </motion.div>
-                    <h2 className="text-2xl font-medium tracking-wide">¡Encontrado!</h2>
+                    <h2 className="text-2xl font-medium tracking-wide">¡Por fin apareció!</h2>
                     <p className={`text-xl font-bold mt-2 ${colorClass}`}>{pokemon_name}</p>
                 </div>
 
                 <div className="space-y-6 relative z-10 font-mono text-center">
                     <div>
-                        <p className="text-sm opacity-50 uppercase tracking-widest mb-1">Intentos Totales</p>
+                        <p className="text-sm opacity-50 uppercase tracking-widest mb-1">Total de Encuentros</p>
                         <p className="text-4xl font-bold tabular-nums">{current_count}</p>
                     </div>
 
                     <div>
-                        <p className="text-sm opacity-50 uppercase tracking-widest mb-1">Tiempo Invertido</p>
+                        <p className="text-sm opacity-50 uppercase tracking-widest mb-1">Tiempo en Cacería</p>
                         <p className="text-xl tabular-nums">{timeSpent}</p>
                     </div>
 
                     <div>
-                        <p className="text-sm opacity-50 uppercase tracking-widest mb-1">Fecha de Inicio</p>
+                        <p className="text-sm opacity-50 uppercase tracking-widest mb-1">Comenzaste el</p>
                         <p className="text-lg tabular-nums">{startDate}</p>
                     </div>
                 </div>
@@ -134,14 +134,14 @@ export const VictoryScreen: React.FC = () => {
                         className="w-full flex items-center justify-center gap-2 bg-white text-black font-medium py-4 rounded-xl hover:bg-zinc-200 transition-colors"
                     >
                         <Share2 className="w-5 h-5" />
-                        Compartir Resumen
+                        Presumir Victoria
                     </button>
                     <button
                         onClick={handleReset}
                         className="w-full flex items-center justify-center gap-2 bg-zinc-800 text-white font-medium py-4 rounded-xl hover:bg-zinc-700 transition-colors"
                     >
                         <RefreshCw className="w-5 h-5 opacity-50" />
-                        Nueva Cacería
+                        Empezar otra cacería
                     </button>
                 </div>
 

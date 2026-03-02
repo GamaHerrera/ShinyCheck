@@ -122,7 +122,7 @@ function App() {
 
   const handleLongPress = (e: React.MouseEvent) => {
     e.preventDefault(); // Prevent standard context menu
-    if (window.confirm("¿Lo encontraste?\n\n[Aceptar] para registrar y celebrar.\n[Cancelar] continuar.")) {
+    if (window.confirm("¡Dime que sí!\n\n¿Acaba de aparecer tu Pokémon Shiny?\n\n[Aceptar] para celebrar.\n[Cancelar] falsa alarma.")) {
       useShinyStore.getState().setVictory(true);
       if (Capacitor.isNativePlatform()) {
         Haptics.impact({ style: ImpactStyle.Heavy });
