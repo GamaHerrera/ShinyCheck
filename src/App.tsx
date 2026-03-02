@@ -3,13 +3,14 @@ import { useShinyStore } from './store/useShinyStore';
 import { TopInfo } from './components/TopInfo';
 import { GiantCounter, getPokemonColor } from './components/GiantCounter';
 import { BottomMetrics } from './components/BottomMetrics';
+import { VictoryScreen } from './components/VictoryScreen';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 import { KeepAwake } from '@capacitor-community/keep-awake';
 import { Capacitor } from '@capacitor/core';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 function App() {
-  const { increment, decrement, reset } = useShinyStore();
+  const { increment, decrement, isVictory } = useShinyStore();
   const [startY, setStartY] = useState(0);
   const [flashlight, setFlashlight] = useState(false);
 
@@ -104,8 +105,8 @@ function App() {
 
   const handleLongPress = (e: React.MouseEvent) => {
     e.preventDefault(); // Prevent standard context menu
-    if (window.confirm("¿Menú Opciones?\n\n[Aceptar] para Resetear el contador a 0.\n[Cancelar] para continuar.")) {
-      reset();
+    if (window.confirm("¿Lo encontraste?\n\n[Aceptar] para registrar y celebrar.\n[Cancelar] continuar.")) {
+      useShinyStore.getState().setVictory(true);
       if (Capacitor.isNativePlatform()) {
         Haptics.impact({ style: ImpactStyle.Heavy });
       }
@@ -138,6 +139,10 @@ function App() {
       <TopInfo />
       <GiantCounter />
       <BottomMetrics />
+
+      <AnimatePresence>
+        {isVictory && <VictoryScreen />}
+      </AnimatePresence>
     </main>
   );
 }

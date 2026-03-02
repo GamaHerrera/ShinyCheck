@@ -54,7 +54,7 @@ export const BottomMetrics: React.FC = () => {
                 </button>
 
                 <div className="text-[10px] opacity-20 tracking-widest uppercase flex flex-col items-center gap-1 font-mono mt-2">
-                    <span>ShinyCheck v1.0.0</span>
+                    <span>ShinyCheck v1.1.0</span>
                     <span>by Alkimia Studio</span>
                 </div>
             </div>
