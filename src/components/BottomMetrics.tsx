@@ -4,7 +4,7 @@ import { Settings, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const BottomMetrics: React.FC = () => {
-    const { current_count, timestamp_start, pokemon_name, odds_base, setPokemon } = useShinyStore();
+    const { current_count, pokemon_name, odds_base, setPokemon } = useShinyStore();
     const [sessionCount, setSessionCount] = React.useState(0);
     const [elapsed, setElapsed] = React.useState('0m');
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -18,9 +18,13 @@ export const BottomMetrics: React.FC = () => {
 
     React.useEffect(() => {
         const updateTime = () => {
-            const diffMs = Date.now() - timestamp_start;
-            const hours = Math.floor(diffMs / (1000 * 60 * 60));
-            const minutes = Math.floor((diffMs / (1000 * 60)) % 60);
+            // Force a store update of playtime to ensure it's fresh right now
+            useShinyStore.getState().updatePlaytime();
+
+            const ms = useShinyStore.getState().active_playtime_ms;
+            const hours = Math.floor(ms / (1000 * 60 * 60));
+            const minutes = Math.floor((ms / (1000 * 60)) % 60);
+
             if (hours > 0) {
                 setElapsed(`${hours}h ${minutes}m`);
             } else {
@@ -29,17 +33,18 @@ export const BottomMetrics: React.FC = () => {
         };
 
         updateTime();
+        // Update the display every minute
         const interval = setInterval(updateTime, 60000);
         return () => clearInterval(interval);
-    }, [timestamp_start]);
+    }, []);
 
     return (
         <>
-            <div className="pb-8 pt-4 flex flex-col items-center justify-end pointer-events-none relative z-10">
-                <div className="flex gap-6 text-sm opacity-50 mb-6 font-mono">
-                    <span>Sesión actual: +{sessionCount}</span>
+            <div className="pb-12 pt-4 flex flex-col items-center justify-end pointer-events-none relative z-10 w-full">
+                <div className="flex gap-4 sm:gap-6 text-xs sm:text-sm opacity-50 mb-6 font-mono w-full justify-center px-4 overflow-hidden text-center whitespace-nowrap">
+                    <span>Sesión: +{sessionCount}</span>
                     <span>•</span>
-                    <span>Tiempo transcurrido: {elapsed}</span>
+                    <span>Tiempo: {elapsed}</span>
                 </div>
 
                 {/* Settings button is interactive while rest is pointer-events-none */}
@@ -53,7 +58,7 @@ export const BottomMetrics: React.FC = () => {
                     <Settings className="w-6 h-6" />
                 </button>
 
-                <div className="text-[10px] opacity-20 tracking-widest uppercase flex flex-col items-center gap-1 font-mono mt-2">
+                <div className="text-[10px] opacity-20 tracking-widest uppercase flex flex-col items-center gap-1 font-mono mt-1">
                     <span>ShinyCheck v1.1.0</span>
                     <span>by Alkimia Studio</span>
                 </div>

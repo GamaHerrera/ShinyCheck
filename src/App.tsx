@@ -44,6 +44,21 @@ function App() {
       }
     };
     enableWakeLock();
+
+    // App State listeners for Playtime Pause/Resume
+    const setupAppListeners = async () => {
+      if (Capacitor.isNativePlatform()) {
+        const { App: CapacitorApp } = await import('@capacitor/app');
+        CapacitorApp.addListener('appStateChange', ({ isActive }) => {
+          if (isActive) {
+            useShinyStore.getState().resumePlaytime();
+          } else {
+            useShinyStore.getState().pausePlaytime();
+          }
+        });
+      }
+    };
+    setupAppListeners();
   }, []);
 
   // Hardware buttons (Volume keys)

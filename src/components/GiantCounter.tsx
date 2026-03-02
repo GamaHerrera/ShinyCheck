@@ -38,8 +38,9 @@ export const GiantCounter: React.FC = () => {
 
     // Calculate ring progress (cap at 100%)
     const percentage = Math.min((current_count / odds_base) * 100, 100);
-    const strokeDasharray = 800; // rough circumference of the circle
-    const strokeDashoffset = strokeDasharray - (strokeDasharray * percentage) / 100;
+    // Exact circumference of r=140 is 2 * PI * 140 = 879.64
+    const circumference = 2 * Math.PI * 140;
+    const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
     return (
         <div className="flex-1 flex items-center justify-center pointer-events-none relative overflow-hidden w-full max-w-lg mx-auto aspect-square">
@@ -61,7 +62,7 @@ export const GiantCounter: React.FC = () => {
                     fill="none"
                     stroke={isOverOdds ? '#ef4444' : hexColor}
                     strokeWidth="4"
-                    strokeDasharray={strokeDasharray}
+                    strokeDasharray={circumference}
                     strokeDashoffset={strokeDashoffset}
                     strokeLinecap="round"
                     style={{ transition: 'stroke-dashoffset 0.5s ease-out, stroke 1s ease-in-out' }}
